@@ -1,0 +1,28 @@
+argo-cd:  
+  configs:
+    cm:
+      admin.enabled: true
+      application.instanceLabelKey: argocd.argoproj.io/instance
+    secret:
+      # Generate your own password with `htpasswd -nbBC 10 "" YOUR_PASSWORD | cut -c2-`
+      # Re-run the command until there are no `/` characters in the output.
+      argocdServerAdminPassword: "$2y$10$lBAfFJoOzR4BG87xKKIdLu3Ry6EdpoAZLX9aftt3ZpPtCngWx.3Sa" # "admin" by default
+    params:
+      server.insecure: "true"
+
+  server:
+    service:          # Take in consideration that my cluster is running 100% locally in VirtualBox
+      type: NodePort  # If you're working with a physical cluster look into switching to LoadBalancer and customizing the ingress config below 
+    ingress:
+      enabled: false
+      hostname: argocd.DOMAIN
+      service:
+        type: LoadBalancer
+      ingressClassName: nginx
+      annotations: {}
+      tls: []
+      # - secretName: argocd-cert
+      #   hosts:
+      #   - argocd.DOMAIN
+    config:
+      application.instanceLabelKey: argocd.argoproj.io/instance
