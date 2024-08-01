@@ -1,5 +1,5 @@
 ---
-{{- with .Values.web }}
+{{- with .Values.nginx }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
