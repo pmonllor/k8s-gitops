@@ -5,7 +5,7 @@ argocd-apps:
       namespace: argocd
       project: default
       source:
-        repoURL: https://github.com/pmonllor/k8s-homelab.git
+        repoURL: https://github.com/pmonllor/k8s-gitops.git
         path: kubernetes/argocd
         targetRevision: HEAD
       destination:
@@ -21,7 +21,7 @@ argocd-apps:
       namespace: argocd
       project: default
       source:
-        repoURL: https://github.com/pmonllor/k8s-homelab.git
+        repoURL: https://github.com/pmonllor/k8s-gitops.git
         path: kubernetes/argocd-apps
         targetRevision: HEAD
       destination:
@@ -38,7 +38,7 @@ argocd-apps:
     apps:
       generators:
       - git:
-          repoURL: https://github.com/pmonllor/k8s-homelab.git
+          repoURL: https://github.com/pmonllor/k8s-gitops.git
           revision: HEAD
           directories:
           - path: kubernetes/apps/*
@@ -51,7 +51,7 @@ argocd-apps:
         spec:
           project: default
           source:
-            repoURL: https://github.com/pmonllor/k8s-homelab.git
+            repoURL: https://github.com/pmonllor/k8s-gitops.git
             targetRevision: HEAD
             path: '{{path}}'
           destination:
