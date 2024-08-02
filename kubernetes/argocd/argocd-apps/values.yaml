@@ -1,15 +1,13 @@
 argocd-apps:
   applicationsets:
-    # Applications in kubernetes/apps/ directory managed by ArgoCD
     apps:
       generators:
       - git:
           repoURL: https://github.com/pmonllor/k8s-gitops.git
           revision: HEAD
           directories:
-          - path: kubernetes/apps/*
-          - path: kubernetes/argocd/
-          - path: kubernetes/argocd-apps/
+          #- path: kubernetes/apps/*
+          - path: kubernetes/argocd/*
       template:
         metadata:
           name: '{{path.basename}}'
@@ -23,7 +21,7 @@ argocd-apps:
             targetRevision: HEAD
             path: '{{path}}'
           destination:
-            namespace: '{{path.basename}}'
+            namespace: argocd #'{{path.basename}}'
             server: https://kubernetes.default.svc
           syncPolicy:
             automated:
