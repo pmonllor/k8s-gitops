@@ -1,38 +1,4 @@
 argocd-apps:
-  applications:
-    # Self-managed ArgoCD
-    argocd:
-      namespace: argocd
-      project: default
-      source:
-        repoURL: https://github.com/pmonllor/k8s-gitops.git
-        path: kubernetes/argocd
-        targetRevision: HEAD
-      destination:
-        namespace: argocd
-        server: https://kubernetes.default.svc
-      syncPolicy:
-        syncOptions:
-        - CreateNamespace=true
-        automated:
-          selfHeal: true
-          prune: true
-    argocd-apps:
-      namespace: argocd
-      project: default
-      source:
-        repoURL: https://github.com/pmonllor/k8s-gitops.git
-        path: kubernetes/argocd-apps
-        targetRevision: HEAD
-      destination:
-        namespace: argocd
-        server: https://kubernetes.default.svc
-      syncPolicy:
-        syncOptions:
-        - CreateNamespace=true
-        automated:
-          selfHeal: true
-          prune: true
   applicationsets:
     # Applications in kubernetes/apps/ directory managed by ArgoCD
     apps:
@@ -42,6 +8,8 @@ argocd-apps:
           revision: HEAD
           directories:
           - path: kubernetes/apps/*
+          - path: kubernetes/argocd/
+          - path: kubernetes/argocd-apps/
       template:
         metadata:
           name: '{{path.basename}}'
